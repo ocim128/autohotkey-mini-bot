@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2
-#Include C:\Users\user\Documents\AutoHotKey\Lib\OCR.ahk
+#Include %A_ScriptDir%\Lib\OCR.ahk
 
 ; ============================================
 ; ============== Global Variables ============
@@ -10,6 +10,8 @@ global fullNameVariable := ""
 global InAction := False
 global EmailGenerated := False
 global IsOtpProcessing := False
+global ResultPath := A_ScriptDir "\result.txt"
+global FirstnamePath := A_ScriptDir "\firstname.txt"
 
 ; ============================================
 ; ============== Notification Function =======
@@ -25,7 +27,7 @@ ShowNotification(message, duration := 333) {
 ; ============================================
 SaveToResultFile() {
     static lastSavedEmail := ""  ; Track the last saved email to prevent duplicates
-    global emailVariable, passwordVariable
+    global emailVariable, passwordVariable, ResultPath
 
     ; Check if email and password are generated
     if (emailVariable == "" || passwordVariable == "") {
@@ -40,13 +42,12 @@ SaveToResultFile() {
     }
 
     ; Define the file path and prepare data
-    resultPath := "C:\Users\user\Documents\AutoHotKey\result.txt"
     resultData := emailVariable "♦•" passwordVariable "#:`n"
 
     ; Attempt to open the file for appending
-    File := FileOpen(resultPath, "a", "UTF-8")
+    File := FileOpen(ResultPath, "a", "UTF-8")
     if !File {
-        ShowNotification("Failed to open result.txt for writing!", 3000)
+        ShowNotification("Failed to open " ResultPath " for writing!", 3000)
         return
     }
 
@@ -58,7 +59,7 @@ SaveToResultFile() {
     lastSavedEmail := emailVariable
 
     ; Display success notification
-    ShowNotification("Saved to result.txt: " resultData, 3000)
+    ShowNotification("Saved to " ResultPath ": " resultData, 3000)
 }
 
 ; ============================================
@@ -254,7 +255,8 @@ AutoclickOCR() {
 ; =========== Helper Functions ===============
 ; ============================================
 GenerateRandomEmail() {
-    fullPath := "C:\Users\user\Documents\AutoHotKey\firstname.txt"
+    global FirstnamePath
+    fullPath := FirstnamePath
     if !FileExist(fullPath) {
         ShowNotification("Firstname file not found at " fullPath, 3000)
         return ""
@@ -287,7 +289,8 @@ GenerateRandomPassword() {
 }
 
 GenerateRandomFullName() {
-    fullPath := "C:\Users\user\Documents\AutoHotKey\firstname.txt"
+    global FirstnamePath
+    fullPath := FirstnamePath
     if !FileExist(fullPath) {
         ShowNotification("Firstname file not found!", 3000)
         return ""

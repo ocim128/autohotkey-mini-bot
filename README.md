@@ -6,14 +6,14 @@ Small AutoHotkey v2 automation script for account registration flows in LDPlayer
 
 - `register-test.ahk`: main script
 - `Lib/OCR.ahk`: OCR library used by the script
-- `firstname.txt`: required source list for random names, expected at `C:\Users\user\Documents\AutoHotKey\firstname.txt`
-- `result.txt`: output file for saved email/password pairs, expected at `C:\Users\user\Documents\AutoHotKey\result.txt`
+- `firstname.txt`: required source list for random names in the repo root
+- `result.txt`: output file for saved email/password pairs in the repo root
 
 ## Requirements
 
 - AutoHotkey v2
 - LDPlayer running with window class `LDPlayerMainFrame`
-- OCR library available at the path referenced by the script
+- OCR library in `Lib/OCR.ahk`
 - Internet access for OTP lookup via `https://akunlama.com/api/v1/mail/list`
 
 ## Keyboard Map
@@ -37,12 +37,12 @@ Small AutoHotkey v2 automation script for account registration flows in LDPlayer
 
 1. Install AutoHotkey v2.
 2. Ensure `OCR.ahk` is available and update the `#Include` path in `register-test.ahk` if your library is stored elsewhere.
-3. Create `C:\Users\user\Documents\AutoHotKey\firstname.txt` with one first name per line.
-4. Create an empty `C:\Users\user\Documents\AutoHotKey\result.txt` if it does not already exist.
+3. Create `firstname.txt` in the repo root with one first name per line.
+4. Create an empty `result.txt` in the repo root if it does not already exist.
 5. Start LDPlayer.
 6. Run `register-test.ahk`.
 
 ## Notes
 
-- The script uses hardcoded Windows paths. Adjust them if your environment differs.
+- The script now uses paths relative to the script folder for `Lib/OCR.ahk`, `firstname.txt`, and `result.txt`.
 - OTP lookup retries up to 10 times with a 500 ms delay between requests.
