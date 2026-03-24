@@ -14,7 +14,7 @@ Small AutoHotkey v2 automation script for account registration flows in LDPlayer
 - AutoHotkey v2
 - LDPlayer running with window class `LDPlayerMainFrame`
 - OCR library in `Lib/OCR.ahk`
-- Internet access for OTP lookup via `https://akunlama.com/api/v1/mail/list`
+- Internet access for OTP lookup via `https://akunlama.com/api/events`
 
 ## Keyboard Map
 

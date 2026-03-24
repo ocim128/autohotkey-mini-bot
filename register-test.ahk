@@ -216,7 +216,7 @@ AutoclickOCR() {
 
     IsOtpProcessing := True
     recipient := StrSplit(emailVariable, "@")[1]
-    url := "https://akunlama.com/api/v1/mail/list?recipient=" recipient
+    url := "https://akunlama.com/api/events?recipient=" recipient
 
     ShowNotification("Checking OTP for: " emailVariable)
 
@@ -235,7 +235,7 @@ AutoclickOCR() {
 
             if (Http.Status = 200) {
                 responseText := Http.ResponseText
-                if (RegExMatch(responseText, '"subject":"(\d{6}) (?:is your Instagram code|adalah kode Instagram Anda)"', &Match)) {
+                if (RegExMatch(responseText, '"subject"\s*:\s*"(\d{6}) (?:is your Instagram code|adalah kode Instagram Anda)"', &Match)) {
                     otp := Match[1]
                     SendInput(otp)
                     ShowNotification("OTP Typed: " otp)
